@@ -13,7 +13,7 @@ import Global from '../../api/Global';
 // Componentes
 import Sidebar from '../shared/sidebar/Sidebar';
 // Imagenes
-import NoImage from '../../assets/img/noimage.png';
+import noImagen from '../../assets/img/noimage.png';
 
 class Articulo extends Component{
 
@@ -41,11 +41,10 @@ class Articulo extends Component{
         console.log("Articulo.js - Metodo getArticulo");
 
         var id = this.props.match.params.id;
-
-        axios.get(this.url + "articulo/" + id)
+        axios.get(this.url + "/articulos/" + id + '.json')
         .then(res => {
             this.setState({
-                articulo: res.data.articulo,
+                articulo: res.data,
                 status: 'success'
             });
         });
@@ -58,9 +57,7 @@ class Articulo extends Component{
         // Log de seguimiento
         console.log("Articulo.js - Metodo eliminarArticulo");
 
-        var id = this.state.articulo._id;
-
-        // popup de confirmacion
+        // Popup de confirmacion
         swal({
             title: "¿Estas seguro?",
             text: "Una vez eliminado, no podrá recuperar este archivo.",
@@ -70,10 +67,11 @@ class Articulo extends Component{
             })
             .then((willDelete) => {
             if (willDelete) {
-                axios.delete(this.url + 'articulo/' + id)
+                var id = this.props.match.params.id;
+                axios.delete(this.url + '/articulos/' + id + '.json')
                 .then(res => {
                     this.setState({
-                        articulo: res.data.articulo,
+                        articulo: res.data,
                         status: 'delete'
                     });
                 });
@@ -106,11 +104,11 @@ class Articulo extends Component{
                     <div id="articles">
                         <article className="article-item detail">
                             <div className="image-wrap">
-                            {
+                            { 
                                 articulo.imagen !== null ? (
-                                <img src={this.url + 'get-imagen/' + articulo.imagen} alt={articulo.titulo} />
+                                <img src={articulo.imagen} alt={articulo.titulo} className="img-detalle-articulo center" />
                                 ):(
-                                    <img src={NoImage} alt="sin imagen" title="sin imagen" />
+                                    <img src={noImagen} alt={articulo.titulo} title={articulo.titulo} />
                                 )
                             }                                
                             </div>
@@ -123,7 +121,7 @@ class Articulo extends Component{
                             <p>{articulo.contenido}</p>
 
                             <button onClick={this.eliminarArticulo} className="btn btn-danger">Eliminar</button>
-                            <Link to={'/blog/editar/' + articulo._id} className="btn btn-warning">Editar</Link>
+                            <Link to={'/blog/editar/' + this.props.match.params.id} className="btn btn-warning">Editar</Link>
 
                             {/* Limpiar los float */}
                             <div className="clearfix"></div>

@@ -11,7 +11,7 @@ import Global from '../../api/Global';
 // Modelo
 import ArticuloModel from '../../models/ArticuloModel';
 // Imagenes
-import NoImage from '../../assets/img/noimage.png';
+import noimagen from '../../assets//img/noimage.png'; 
 
 class Articulos extends Component{
 
@@ -84,17 +84,17 @@ class Articulos extends Component{
         // Log de seguimiento
         console.log("Articulos.js - Metodo getBuscarArticulos");
 
-        axios.get(this.url + "search/" + stringBuscado)
+        axios.get(this.url + "/articulos.json")
         .then(res => {
                 this.setState({
-                    articulos: res.data.articulos,
+                    articulos: this.buscarArray(res.data, stringBuscado),
                     status: 'success'
                 });
         });
     }; 
 
     //----------------------------------------------------------------------//
-    // Metodo para mostrar los ultimos 5 articulos creados                  //
+    // Metodo para mostrar los articulos recuperados de la BBDD             //
     //----------------------------------------------------------------------//
     ordenarArray(articulosArray, esBlog){
 
@@ -125,6 +125,31 @@ class Articulos extends Component{
     } 
 
     //----------------------------------------------------------------------//
+    // Metodo para mostrar articulo/s buscados                              //
+    //----------------------------------------------------------------------//
+    buscarArray(articulosArray, stringBuscado){
+
+        var articulosData = [];
+        if(articulosArray === null){
+            return [];
+        }
+
+        Object.keys(articulosArray).forEach( key => {
+            var articulo = ArticuloModel;
+            articulo = articulosArray[key];
+            var titulo = articulo.titulo.toLowerCase();
+            var stringTexto = stringBuscado.toLowerCase();
+            if(titulo.includes(stringTexto)){
+                articulo.id = key;
+                // Devolvemos en el Array el objeto extraido
+                articulosData.push(articulo);
+            }
+        });
+        
+        return articulosData;
+    }
+
+    //----------------------------------------------------------------------//
     // Metodo render()                                                      //
     //----------------------------------------------------------------------//
     render(){
@@ -142,7 +167,7 @@ class Articulos extends Component{
                                 articulo.imagen !== null ? (
                                    <img src={articulo.imagen} alt={articulo.titulo} />
                                 ):(
-                                    <img src={NoImage} alt="sin imagen" title="sin imagen" />
+                                    <img src={noimagen} alt={articulo.titulo} title={articulo.titulo} />
                                 )
                             }
                             
@@ -174,8 +199,7 @@ class Articulos extends Component{
         }else{
             return(
                 <div id="articles">
-                    <h2 className="sub-header">Cargando ...</h2>
-                    <p>Espere mientras se carga el contenido.</p>
+                    <p>No hay contenido en la sección.</p>
                </div>
             );            
         }

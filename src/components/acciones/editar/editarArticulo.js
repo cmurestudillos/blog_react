@@ -8,8 +8,6 @@ import swal from 'sweetalert';
 // Carga la configuracion y URL BackEnd
 import Global from '../../../api/Global';
 import Sidebar from '../../shared/sidebar/Sidebar';
-// Imagenes
-import NoImage from '../../../assets/img/noimage.png';
 
 class EditarArticulo extends Component{
 
@@ -45,10 +43,10 @@ class EditarArticulo extends Component{
         // Log de seguimiento
         console.log("editarArticulo.js - Metodo getArticulo"); 
 
-        axios.get(this.url + "articulo/" + id)
+        axios.get(this.url + "/articulos/" + id + '.json')
         .then(res => {
             this.setState({
-                articulo: res.data.articulo
+                articulo: res.data
             });
         });
     };
@@ -64,7 +62,7 @@ class EditarArticulo extends Component{
             articulo: {
                 titulo: this.tituloRef.current.value,
                 contenido: this.contenidoRef.current.value,
-                imagen: this.state.articulo.imagen
+                fecha: new Date()
             }
         });
     };
@@ -83,63 +81,20 @@ class EditarArticulo extends Component{
         this.cambiarState()
 
         // Peticion http 'POST' para guardar el articulo 
-        axios.put(this.url + "articulo/" + this.articuloId, this.state.articulo)
+        axios.put(this.url + "/articulos/" + this.articuloId + '.json', this.state.articulo)
         .then(res => {
-            if(res.data.articulo){
+            if(res.data){
                 this.setState({
-                    articulo: res.data.articulo,
-                    status: 'waiting'
+                    articulo: res.data,
+                    status: 'success'
                 });
 
                 // popup de confirmacion
                 swal(
-                    'Articulo Creado',
-                    'El articulo ha sido creado correctamente.',
+                    'Articulo Modificado',
+                    'El articulo ha sido modificado correctamente.',
                     'success'
                 );
-
-                // Subir la imagen
-                if(this.state.selectedfile !== null){
-                    // Sacar el id del articulo 
-                    var articuloId = this.state.articulo._id;
-
-                    // Crear formData y añadir fichero
-                    const formData = new FormData();
-                    formData.append(
-                        'file0',
-                        this.state.selectedfile,
-                        this.state.selectedfile.name
-                    );
-
-                    // Peticion AJAX
-                    axios.post(this.url + "upload-imagen/" + articuloId, formData)
-                    .then(res => {
-                        if(res.data.articulo){
-                            this.setState({
-                                articulo: res.data.articulo,
-                                status: 'success'
-                            });
-                        }else{
-                            this.setState({
-                                articulo: res.data.articulo,
-                                status: null
-                            });   
-                            
-                            // popup de Error
-                            swal(
-                                'Error',
-                                'Error al crear el articulo.',
-                                'error'
-                            );                            
-                        }
-                    });
-
-                }else{
-                    this.setState({
-                        status: 'success'
-                    });
-                }
-
             }else{
                 this.setState({
                     status: null
@@ -158,20 +113,6 @@ class EditarArticulo extends Component{
         console.log("Formulario enviado");
     };
 
-    //----------------------------------------------------------------------------------//
-    // Metodo para el evento para imagenes con el articulo                              //
-    //----------------------------------------------------------------------------------//
-    fileChangeEvent = (evento) => {
-        // Log de seguimiento
-        console.log("editarArticulo.js - Metodo fileChangeEvent"); 
-
-        this.setState({
-            selectedfile: evento.target.files[0]
-        });
-
-        //console.log(this.state);
-    };
-
     //----------------------------------------------------------------------//
     // Metodo render()                                                      //
     //----------------------------------------------------------------------//     
@@ -182,16 +123,10 @@ class EditarArticulo extends Component{
         // Redirecion
         if(this.state.status === 'success'){
             return(
-                <Redirect to={'/blog'} />
+                <Redirect to={'/blog/articulo/' + this.articuloId} />
             );
         }
 
-        // Variables
-        var pStyle = {
-            width: '75%',
-            float: 'right',
-            margin: '7px'
-        };
         var articuloUpdate = this.state.articulo;
 
         return (
@@ -211,20 +146,6 @@ class EditarArticulo extends Component{
                             <div className="form-group">
                                 <label htmlFor="contenido">Contenido</label>
                                 <textarea name="contenido" defaultValue={articuloUpdate.contenido} ref={this.contenidoRef} onChange={this.cambiarState} ></textarea>
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="file0">Imagen</label>
-                                <div className="image-wrap">
-                                    {
-                                        articuloUpdate.imagen !== null ? (
-                                        <img src={this.url + 'get-imagen/' + articuloUpdate.imagen} alt={articuloUpdate.titulo} style={pStyle} />
-                                        ):(
-                                        <img src={NoImage} alt="sin imagen" title="sin imagen" style={pStyle} />
-                                        )
-                                    }                                
-                                </div>
-                                <input type="file" name="file0" onChange={this.fileChangeEvent} />
                             </div>
 
                             {/*Limpiar los float */}

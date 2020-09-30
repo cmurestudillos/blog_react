@@ -53,8 +53,7 @@ class Sidebar extends Component{
             }
 
             <div id="search-blog" className="sidebar-item">
-                <h3>Buscador</h3>
-                <p>Encuentra el articulo que buscas</p>
+                <p><strong>Encuentra lo que buscas</strong></p>
                 <form onSubmit={this.redirectBusqueda}>
                     <input type="text" nombre="search" ref={this.buscarRef} />
                     <input className="btn btn-success" type="submit" nombre="enviar" value="Buscar" />

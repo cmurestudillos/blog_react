@@ -412,3 +412,9 @@ textarea {
   border-bottom: 1px solid #eee;
   padding-bottom: 5px solid #eee;
 }
+
+.img-detalle-articulo{
+  width: auto !important;
+  height: inherit !important;
+  display: block;
+}

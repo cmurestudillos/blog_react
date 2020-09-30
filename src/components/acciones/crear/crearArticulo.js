@@ -7,7 +7,6 @@ import axios from 'axios';
 import swal from 'sweetalert';
 // Carga la configuracion y URL BackEnd
 import Global from '../../../api/Global';
-import Sidebar from '../../shared/sidebar/Sidebar';
 
 class CrearArticulo extends Component{
 
@@ -17,8 +16,7 @@ class CrearArticulo extends Component{
     contenidoRef = React.createRef();
     state = {
         articulo: {},
-        status: null,
-        selectedfile: null
+        status: null
     };
 
     //----------------------------------------------------------------------------------//
@@ -31,7 +29,9 @@ class CrearArticulo extends Component{
         this.setState({
             articulo: {
                 titulo: this.tituloRef.current.value,
-                contenido: this.contenidoRef.current.value
+                contenido: this.contenidoRef.current.value,
+                fecha: new Date(),
+                imagen: ''
             }
         });
     };
@@ -50,12 +50,12 @@ class CrearArticulo extends Component{
         this.cambiarState()
 
         // Peticion http 'POST' para guardar el articulo 
-        axios.post(this.url + "save", this.state.articulo)
+        axios.post(this.url + "/articulos.json", this.state.articulo)
         .then(res => {
-            if(res.data.articulo){
+            if(res.data){
                 this.setState({
-                    articulo: res.data.articulo,
-                    status: 'waiting'
+                    articulo: res.data,
+                    status: 'success'
                 });
 
                 // popup de confirmacion
@@ -64,49 +64,6 @@ class CrearArticulo extends Component{
                     'El articulo ha sido creado correctamente.',
                     'success'
                 );
-
-                // Subir la imagen
-                if(this.state.selectedfile !== null){
-                    // Sacar el id del articulo 
-                    var articuloId = this.state.articulo._id;
-
-                    // Crear formData y añadir fichero
-                    const formData = new FormData();
-                    formData.append(
-                        'file0',
-                        this.state.selectedfile,
-                        this.state.selectedfile.name
-                    );
-
-                    // Peticion AJAX
-                    axios.post(this.url + "upload-imagen/" + articuloId, formData)
-                    .then(res => {
-                        if(res.data.articulo){
-                            this.setState({
-                                articulo: res.data.articulo,
-                                status: 'success'
-                            });
-                        }else{
-                            this.setState({
-                                articulo: res.data.articulo,
-                                status: null
-                            });   
-                            
-                            // popup de Error
-                            swal(
-                                'Error',
-                                'Error al crear el articulo.',
-                                'error'
-                            );                            
-                        }
-                    });
-
-                }else{
-                    this.setState({
-                        status: 'success'
-                    });
-                }
-
             }else{
                 this.setState({
                     status: null
@@ -123,20 +80,6 @@ class CrearArticulo extends Component{
         });
 
         console.log("Formulario enviado");
-    };
-
-    //----------------------------------------------------------------------------------//
-    // Metodo para el evento para imagenes con el articulo                              //
-    //----------------------------------------------------------------------------------//
-    fileChangeEvent = (evento) => {
-        // Log de seguimiento
-        console.log("crearArticulo.js - Metodo fileChangeEvent"); 
-
-        this.setState({
-            selectedfile: evento.target.files[0]
-        });
-
-        //console.log(this.state);
     };
 
     //----------------------------------------------------------------------//
@@ -168,19 +111,12 @@ class CrearArticulo extends Component{
                                 <textarea name="contenido" ref={this.contenidoRef} onChange={this.cambiarState} ></textarea>
                             </div>
 
-                            <div className="form-group">
-                                <label htmlFor="file0">Imagen</label>
-                                <input type="file" name="file0" onChange={this.fileChangeEvent} />
-                            </div>
-
                             {/*Limpiar los float */}
                             <div className="clearfix"></div>
 
                             <input type="submit" value="Guardar" className="btn btn-success" />
                         </form>
                     </div>
-
-                    <Sidebar />
                 </div>
             </div>
         );
