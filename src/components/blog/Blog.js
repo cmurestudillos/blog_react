@@ -2,30 +2,31 @@ import React, {Component} from 'react';
 // Componentes
 import Slider from "../shared/slider/Slider";
 import Sidebar from "../shared/sidebar/Sidebar";
-import Articulos from '../articulos/Articulos';
+import Articulos from "../articulos/Articulos";
 
-class Home extends Component{
+class Blog extends Component{
     //----------------------------------------------------------------------//
     // Metodo render()                                                      //
     //----------------------------------------------------------------------//     
     render(){
         // Log de seguimiento
-        console.log('HomeComponent - Metodo render()');
+        console.log('BlogComponent - Metodo render()');
 
         return (
-            <div id="home">
+            <div id="blog">
                 {/* Slider - Titulo */}
-                <Slider title="Bienvenidos a React.js" btn="Ir al Blog" size="slider-big" />
+                <Slider title="Blog" size="slider-small" />
                 <div className="center">
                     <div id="content">
-                        <h1 className="sub-header"> Ultimos Articulos </h1>
-                        <Articulos home="true" />
+                        {/* Listado de articulos - APIRest */}
+                        <Articulos />   
                     </div>
-                    <Sidebar />
+                    <Sidebar blog="true" />
                 </div>
+
             </div>
         );
     }
 }
 
-export default Home;
+export default Blog;

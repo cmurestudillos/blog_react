@@ -10,11 +10,8 @@ class Footer extends Component{
 
         return (
         <footer id="footer">
-            <div className="left">
-                <p>Copyright &copy; - Carlos Mur</p>
-            </div>
-            <div className="right">
-                <p> Año - 2020</p>
+            <div className="cewnter">
+                <p><i>Copyright &copy; - Carlos Mur</i></p>
             </div>
         </footer>
         );
