@@ -24,7 +24,7 @@ class Header extends Component{
                         <ul>
                             <li><NavLink to="/inicio" activeClassName="active">Inicio</NavLink></li>
                             <li><NavLink to="/blog" activeClassName="active">Blog</NavLink></li>
-                            <li><NavLink to="/formulario" activeClassName="active">Formulario</NavLink></li>
+                            <li><NavLink to="/login" activeClassName="active">Login</NavLink></li>
                         </ul>
                     </nav>
                     {/* Limpiar Floats */}
