@@ -270,6 +270,23 @@ body {
   border: 1px solid #444;
 }
 
+.btn-azul {
+  background: white;
+  color: rgba(73, 155, 234, 1) !important;
+  border: 1px solid rgba(73, 155, 234, 1);
+  width: 75px;
+  height: 32px;
+  border-radius: 25px;
+  margin: 10px;
+}
+
+.btn-azul:hover {
+  background: rgba(73, 155, 234, 1);
+  color: white !important;
+  border: 1px solid white;
+  text-decoration: none !important;
+}
+
 .middle-form {
   width: 50%;
   margin: 0px auto;
