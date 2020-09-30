@@ -48,10 +48,12 @@ class Articulos extends Component{
         // Log de seguimiento
         console.log("Articulos.js - Metodo getArticulos");
 
-        axios.get(this.url + "articulos")
+        var esBlog = true;
+
+        axios.get(this.url + "/articulos.json")
         .then(res => {
             this.setState({
-                articulos: res.data.articulos,
+                articulos: this.ordenarArray(res.data, esBlog),
                 status: 'success'
             });
         });
@@ -64,11 +66,12 @@ class Articulos extends Component{
         // Log de seguimiento
         console.log("Articulos.js - Metodo getUltimosArticulos");
 
+        var esBlog = false;
+
         axios.get(this.url + "/articulos.json")
         .then(res => {
             this.setState({
-                articulos: this.ordenarArray(res.data),
-                //articulos: res.data.articulos,
+                articulos: this.ordenarArray(res.data, esBlog),
                 status: 'success'
             });
         });
@@ -93,7 +96,7 @@ class Articulos extends Component{
     //----------------------------------------------------------------------//
     // Metodo para mostrar los ultimos 5 articulos creados                  //
     //----------------------------------------------------------------------//
-    ordenarArray(articulosArray){
+    ordenarArray(articulosArray, esBlog){
 
         var articulosData = [];
         if(articulosArray === null){
@@ -103,10 +106,18 @@ class Articulos extends Component{
         Object.keys(articulosArray).reverse().forEach( key => {
             var articulo = ArticuloModel; 
             articulo = articulosArray[key];
-            if(articulosData.length <= 4){
+            
+            if(esBlog){
+                articulo = articulosArray[key];
                 articulo.id = key;
                 // Devolvemos en el Array el objeto extraido
                 articulosData.push(articulo);
+            }else{
+                if(articulosData.length <= 4){
+                    articulo.id = key;
+                    // Devolvemos en el Array el objeto extraido
+                    articulosData.push(articulo);
+                }
             }
         });
 

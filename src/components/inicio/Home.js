@@ -15,7 +15,7 @@ class Home extends Component{
         return (
             <div id="home">
                 {/* Slider - Titulo */}
-                <Slider title="Bienvenidos a React.js" btn="Ir al Blog" size="slider-big" />
+                <Slider title="Blog en React.js" btn="Ir al Blog" size="slider-big" />
                 <div className="center">
                     <div id="content">
                         <h1 className="sub-header"> Ultimos Articulos </h1>
