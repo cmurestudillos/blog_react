@@ -1,8 +1,9 @@
+import urlEndPoint from '../url';
 //----------------------------------------------------------------------//
 // Configuracion global de nuestra aplicacion                           //
 //----------------------------------------------------------------------//
 var Global = {
-    url: process.env.VUE_APP_DATABASE_URL
+    url: urlEndPoint.endpoint
 };
 
 export default Global;
