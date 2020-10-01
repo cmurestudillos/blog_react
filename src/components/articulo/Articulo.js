@@ -112,16 +112,16 @@ class Articulo extends Component{
                                 )
                             }                                
                             </div>
-                            <h1 className="sub-header">{articulo.titulo}</h1>
+                            <h1 className="sub-header">
+                                {articulo.titulo}
+                                <Link to={'/inicio'} className="btn-azul right">Volver</Link>    
+                            </h1>
                             <span className="date">
                                 <Moment locale='es' fromNow>
                                     {articulo.fecha}
                                 </Moment>
                             </span>
                             <p>{articulo.contenido}</p>
-
-                            <button onClick={this.eliminarArticulo} className="btn btn-danger">Eliminar</button>
-                            <Link to={'/blog/editar/' + this.props.match.params.id} className="btn btn-warning">Editar</Link>
 
                             {/* Limpiar los float */}
                             <div className="clearfix"></div>

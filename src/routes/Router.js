@@ -8,7 +8,6 @@ import Error from '../components/shared/error/Error';
 // Componente de pruebas/maquetacion, comentar despues de formado el BackEnd
 import Home from '../components/inicio/Home';
 import Blog from '../components/blog/Blog';
-import Login from '../components/login/Login';
 import Buscador from '../components/buscador/Buscador';
 import Articulo from '../components/articulo/Articulo';
 import CrearArticulo from '../components/acciones/crear/crearArticulo';
@@ -45,7 +44,6 @@ class Router extends Component{
                             );
                         }
                     } />
-                    {<Route exact path="/login" component={Login} /> }
                     <Route component={Error} />
                 </Switch>
 

@@ -190,6 +190,7 @@ body {
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#75ace6', GradientType=1);
   padding: 20px;
   margin-top: 30px;
+  box-shadow: 0px 0px 5px #ccc;
 }
 
 .sidebar-item h3 {
@@ -222,62 +223,17 @@ body {
   cursor: pointer;
 }
 
-.btn-success {
-  background: green;
-  color: white !important;
-}
-
-.btn-success:hover {
-  background: white;
-  color: green !important;
-  border: 1px solid green;
-}
-
-.btn-danger{
-  background: red;
-  color: white !important;
-  float: left;
-  width: 25%;
-}
-
-.btn-danger:hover{
-  background: white;
-  color: black !important;
-  border: 1px solid red;
-}
-
-.btn-warning{
-  background: yellow;
-  color: black !important;
-  float: right;
-  width: 25%;
-}
-
-.btn-warning:hover{
-  background: white;
-  color: black !important;
-  border: 1px solid yellow;
-}
-
-.btn-form {
-  background: #444;
-  color: white;
-}
-
-.btn-form:hover {
-  background: white;
-  color: #444;
-  border: 1px solid #444;
-}
-
 .btn-azul {
   background: white;
   color: rgba(73, 155, 234, 1) !important;
   border: 1px solid rgba(73, 155, 234, 1);
-  width: 75px;
-  height: 32px;
+  width: 15%;
+  height: 16px;
   border-radius: 25px;
-  margin: 10px;
+  padding: 10px;
+  text-decoration: none !important;
+  font-size: 14px;
+  text-align: center;
 }
 
 .btn-azul:hover {
@@ -287,49 +243,24 @@ body {
   text-decoration: none !important;
 }
 
-.middle-form {
-  width: 50%;
-  margin: 0px auto;
+.btn-buscar {
+  background: white;
+  color: rgba(73, 155, 234, 1) !important;
+  border: 1px solid rgba(73, 155, 234, 1);
+  width: 128px;
+  height: 48px;
+  border-radius: 25px;
+  text-decoration: none !important;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 5px;
 }
 
-.middle-form label {
-  display: block;
-  float: left;
-  text-align: left;
-  margin-top: 10px;
-  margin-bottom: 5px;
-  font-size: 17px;
-}
-
-input[type="text"],
-input[type="file"],
-textarea {
-  width: 100%;
-  min-height: 30px;
-  border: 1px solid #ccc;
-  padding: 3px;
-  margin-bottom: 5px;
-  transition: 300ms all;
-}
-
-input[type="text"]:focus,
-textarea {
-  box-shadow: 0px 0px 5px #ccc inset;
-}
-
-textarea {
-  width: 100%;
-  height: 150px;
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 150px;
-  max-height: 300px;
-}
-
-.radio-button {
-  margin-top: 15px;
-  float: left;
-  margin-bottom: 15px;
+.btn-buscar:hover {
+  background: rgba(73, 155, 234, 1);
+  color: white !important;
+  border: 1px solid white;
+  text-decoration: none !important;
 }
 
 #footer {
