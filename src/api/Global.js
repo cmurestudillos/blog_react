@@ -2,7 +2,7 @@
 // Configuracion global de nuestra aplicacion                           //
 //----------------------------------------------------------------------//
 var Global = {
-    url: 'https://blogframeworks.firebaseio.com'
+    url: process.env.VUE_APP_DATABASE_URL
 };
 
 export default Global;
