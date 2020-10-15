@@ -1,4 +1,4 @@
-import urlEndPoint from '../url';
+import urlEndPoint from '../config/url';
 //----------------------------------------------------------------------//
 // Configuracion global de nuestra aplicacion                           //
 //----------------------------------------------------------------------//
